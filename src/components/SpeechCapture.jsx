@@ -1,4 +1,3 @@
-// SpeechCapture.jsx
 import React, { useState } from "react";
 
 const SpeechCapture = () => {
@@ -9,7 +8,16 @@ const SpeechCapture = () => {
     const [showConfirmation, setShowConfirmation] = useState(false);
     const [editMode, setEditMode] = useState(false);
 
+    const clearAllStates = () => {
+        setText("");
+        setConfirmText("");
+        setShowConfirmation(false);
+        setEditMode(false);
+        setRegisteredData(null);
+    };
+
     const handleVoiceInput = () => {
+        clearAllStates(); // Clear all states before starting new voice input
         const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
         recognition.lang = "en-US";
         recognition.onstart = () => setProcessing(true);
@@ -50,21 +58,15 @@ const SpeechCapture = () => {
                 });
             } else if (data.error && data.error.includes("Error sending to save_worker")) {
                 alert("Error: Speak your details correctly.");
-                setText(""); // Clear the text state
-                setConfirmText(""); //Clear the confirm text state
-                setShowConfirmation(false); // remove confirmation box
+                clearAllStates();
             } else if (data.error && data.error.includes("Could not extract required details, likely an invalid mobile number")) {
                 alert("Error: Speak your details correctly.");
-                setText(""); // Clear the text state
-                setConfirmText(""); //Clear the confirm text state
-                setShowConfirmation(false); // remove confirmation box
+                clearAllStates();
             }
 
         } catch (error) {
             console.error("Error sending speech:", error);
-            setText(""); // Clear the text state
-            setConfirmText(""); //Clear the confirm text state
-            setShowConfirmation(false); // remove confirmation box
+            clearAllStates();
         }
     };
 
