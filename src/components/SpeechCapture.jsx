@@ -41,7 +41,7 @@ const SpeechCapture = () => {
 
     return (
         <div>
-            <h2>Speak your details (name, mobile, profession)</h2>
+            <h2>Speak your details (Name, Mobile No, Profession)</h2>
             <button onClick={handleVoiceInput} disabled={processing}>
                 {processing ? "Listening..." : "Start Speaking"}
             </button>
