@@ -7,22 +7,15 @@ app = Flask(__name__)
 CORS(app)
 
 def process_user_input(text):
-    words = text.split()
-
-    # Extract and clean mobile number (allow spaces anywhere)
-    mobile_match = re.search(r"(\d\s*){10,}", text)  # Match at least 10 digits, allowing spaces
-    mobile = "".join(re.findall(r"\d", mobile_match.group(0))) if mobile_match else ""  # Remove all spaces
-
-    # Extract name (assume first word before the mobile number)
-    name = text.split(mobile_match.group(0), 1)[0].strip() if mobile_match else ""
-
-    # Extract profession (words after the mobile number)
-    profession = text.split(mobile_match.group(0), 1)[1].strip() if mobile_match else ""
-
-    if not mobile or not profession:
-        return None  # Error case
-
-    return {"name": name, "mobile": mobile, "profession": profession}
+    mobile_match = re.search(r"(\d\s*){10,}", text)
+    if mobile_match:
+        mobile = "".join(re.findall(r"\d", mobile_match.group(0)))
+        if len(mobile) == 10:
+            parts = text.split(mobile_match.group(0), 1)
+            name = parts[0].strip()
+            profession = parts[1].strip() if len(parts) > 1 else ""
+            return {"name": name, "mobile": mobile, "profession": profession}
+    return None
 
 @app.route("/process_speech", methods=["POST"])
 def process_speech():
@@ -35,11 +28,17 @@ def process_speech():
         print("Received Speech:", text)
 
         processed_data = process_user_input(text)
+        print("Processed Data:", processed_data) #Added print statement
         if processed_data:
-            response = requests.post("http://localhost:5000/save_worker", json=processed_data)
-            return jsonify({"message": "Processed successfully", "data": processed_data}), 200
+            try:
+                response = requests.post("http://localhost:5000/save_worker", json=processed_data)
+                response.raise_for_status()
+                return jsonify({"message": "Processed successfully", "data": processed_data}), 200
+            except requests.exceptions.RequestException as e:
+                print(f"Error sending to save_worker: {e}")
+                return jsonify({"error": f"Error sending to save_worker: {e}"}), 500
         else:
-            return jsonify({"error": "Could not extract required details"}), 400
+            return jsonify({"error": "Could not extract required details, likely an invalid mobile number"}), 400
     except Exception as e:
         print("Error:", str(e))
         return jsonify({"error": str(e)}), 500

@@ -14,7 +14,9 @@ const WorkerSchema = new mongoose.Schema({
     mobile: String,
     profession: String
 });
-const Worker = mongoose.model("Worker", WorkerSchema);
+
+// Use "registered_workers" as the collection name
+const Worker = mongoose.model("Worker", WorkerSchema, "registered_workers");
 
 app.post("/save_worker", async (req, res) => {
     const { name, mobile, profession } = req.body;
