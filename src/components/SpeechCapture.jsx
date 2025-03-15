@@ -50,12 +50,21 @@ const SpeechCapture = () => {
                 });
             } else if (data.error && data.error.includes("Error sending to save_worker")) {
                 alert("Error: Speak your details correctly.");
+                setText(""); // Clear the text state
+                setConfirmText(""); //Clear the confirm text state
+                setShowConfirmation(false); // remove confirmation box
             } else if (data.error && data.error.includes("Could not extract required details, likely an invalid mobile number")) {
                 alert("Error: Speak your details correctly.");
+                setText(""); // Clear the text state
+                setConfirmText(""); //Clear the confirm text state
+                setShowConfirmation(false); // remove confirmation box
             }
 
         } catch (error) {
             console.error("Error sending speech:", error);
+            setText(""); // Clear the text state
+            setConfirmText(""); //Clear the confirm text state
+            setShowConfirmation(false); // remove confirmation box
         }
     };
 
