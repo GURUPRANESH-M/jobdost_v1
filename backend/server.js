@@ -1,3 +1,4 @@
+// server.js
 const express = require("express");
 const mongoose = require("mongoose");
 
@@ -15,7 +16,6 @@ const WorkerSchema = new mongoose.Schema({
     profession: String
 });
 
-// Use "registered_workers" as the collection name
 const Worker = mongoose.model("Worker", WorkerSchema, "registered_workers");
 
 app.post("/save_worker", async (req, res) => {

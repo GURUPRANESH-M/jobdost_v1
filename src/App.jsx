@@ -11,7 +11,7 @@ const App = () => {
 
     return (
         <div>
-            <h1>WORKER REGISTRATION MODULE</h1>
+            <h1>VOICE-BASED WORKER REGISTRATION MODULE</h1>
             <SpeechCapture onSpeechResult={handleSpeechResult} />
         </div>
     );
