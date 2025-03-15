@@ -68,21 +68,19 @@ button.listening {
   font-size: 1.1em;
 }
 
-/* Media Queries for Responsiveness */
-
 @media (max-width: 768px) {
   .app-container {
       padding: 30px;
-      width: 95%; /* Wider on smaller screens */
+      width: 95%;
   }
 
   h1 {
-      font-size: 2em; /* Smaller heading on smaller screens */
+      font-size: 2em;
       margin-bottom: 20px;
   }
 
   button {
-      padding: 25px; /* Smaller button on smaller screens */
+      padding: 25px;
       font-size: 18px;
   }
 
@@ -95,7 +93,7 @@ button.listening {
 @media (max-width: 480px) {
   .app-container {
       padding: 20px;
-      width: 98%; /* Even wider on very small screens */
+      width: 98%;
   }
 
   h1 {
@@ -103,7 +101,7 @@ button.listening {
   }
 
   button {
-      padding: 20px; /* Even smaller button */
+      padding: 20px;
       font-size: 16px;
   }
 
@@ -120,4 +118,61 @@ button.listening {
   .app-container{
       margin: 20px 0;
   }
+}
+
+div {
+  font-family: sans-serif;
+}
+
+h2 {
+  color: #4a5568;
+  margin-bottom: 20px;
+}
+
+button[onClick="handleVoiceInput"] {
+  font-size: 16px;
+  padding: 10px 20px;
+  border-radius: 5px;
+  background: linear-gradient(135deg, #48bb78, #38a169);
+  box-shadow: 0 3px 10px rgba(56, 161, 105, 0.3);
+}
+
+button[onClick="handleVoiceInput"]:hover {
+  background: linear-gradient(135deg, #38a169, #2f855a);
+  box-shadow: 0 4px 12px rgba(47, 133, 90, 0.4);
+}
+
+button[onClick="handleVoiceInput"]:disabled {
+  background: #e2e8f0;
+  color: #a0aec0;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+input[type="text"] {
+  padding: 8px;
+  font-size: 16px;
+  border: 1px solid #e2e8f0;
+  border-radius: 5px;
+  margin: 5px;
+  width: 80%;
+}
+
+.confirmation-box div {
+  margin: 10px 0;
+}
+
+.confirmation-box button {
+  font-size: 14px;
+  padding: 8px 15px;
+  border-radius: 8px;
+  margin: 5px;
+  background: #6b7280;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.confirmation-box button:hover {
+  background: #4a5568;
 }
