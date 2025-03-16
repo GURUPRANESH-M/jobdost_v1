@@ -1,9 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import SpeechCapture from "./components/SpeechCapture";
-import "./styles.css"
+import "./styles.css";
 
 const App = () => {
     const [speechText, setSpeechText] = useState("");
+
+    useEffect(() => {
+        document.title = "JobDost - Worker Registration"; 
+    }, []);
 
     const handleSpeechResult = (text) => {
         setSpeechText(text);
